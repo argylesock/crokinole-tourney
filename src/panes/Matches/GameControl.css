@@ -1,0 +1,50 @@
+.game-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: left;
+}
+
+.game-control .p1.p1-winner,
+.game-control .p1.p2-winner {
+  padding-right: 1em;
+}
+.game-control .fa-award {
+  position: absolute;
+  top: 0.5em;
+  right: 0.35em;
+}
+
+.game-control > div > :first-child {
+  border-bottom: 1px solid #6c757d;
+}
+
+.game-control > .div {
+  min-width: 150px;
+}
+.game-control .p1,
+.game-control .p2 {
+  position: relative;
+  width: 11em;
+  min-height: 2rem;
+  background-color: var(--bs-gray-200);
+  border-radius: 3px;
+  margin-right: 0.75em;
+  padding: 0.25em 0.5em;
+  text-overflow: ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.game-control .p1 {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.game-control .p2 {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.elim-32 .game-control .p1,
+.elim-32 .game-control .p2 {
+  width: 8em;
+}

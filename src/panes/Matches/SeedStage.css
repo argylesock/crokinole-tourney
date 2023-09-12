@@ -1,0 +1,18 @@
+.seed-stage .carousel-control-prev,
+.seed-stage .carousel-control-next {
+  height: 4em;
+}
+.seed-stage .carousel-indicators {
+  margin-bottom: 0;
+}
+.seed-stage {
+  padding-bottom: 2.5em;
+}
+.seed-round-title {
+  font-weight: 200;
+  font-size: larger;
+  text-transform: uppercase;
+  padding-top: 0.25em;
+  padding-bottom: 1em;
+  text-align: center;
+}
