@@ -4,7 +4,7 @@ import { limit } from "../../utils"
 import RangeSlider from "../../components/RangeSlider"
 
 /** return the min number seed rounds for nplayers */
-const minseed = (x:number) => Math.floor(Math.log2(x))
+const maxseed = (x:number) => Math.ceil(Math.log2(x))
 
 interface SeedRangeProps {
   nplayers:number|undefined
@@ -12,8 +12,8 @@ interface SeedRangeProps {
 }
 const SeedRange = ({nplayers, className}:SeedRangeProps) => {
   const {seedrounds, setSeedrounds} = useContext(MatchesContext)
-  const minSeedrounds = nplayers == undefined ? 1 : minseed(nplayers)
-  const maxSeedrounds = nplayers == undefined ? 32 : nplayers-1
+  const minSeedrounds = 1
+  const maxSeedrounds = nplayers == undefined ? 4 : maxseed(nplayers)
 
   useEffect(()=>{
     if (nplayers == undefined) return
