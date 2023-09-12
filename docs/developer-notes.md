@@ -1,5 +1,6 @@
+# Developer Notes
 
-## How to add 'client' instances without a server
+### How to add 'client' instances without a server
 
 One option to consider for peer-to-peer communications to allow access from
 other a 'client' browser to communicate with a 'server' browser is [WebRTC peer connections][11].
@@ -11,6 +12,12 @@ This would require a [STUN server][12]
 [12]: https://www.twilio.com/en-us/stun-turn/pricing
 [13]: https://www.twilio.com/en-us/stun-turn/pricing
 [14]: https://gist.github.com/mondain/b0ec1cf5f60ae726202e
+
+
+---
+### Publishing Github Pages with Github Actions
+
+Implemented _.github/workflows/deploy.yml_ based on info from [sitek94/vite-deploy-demo](https://github.com/sitek94/vite-deploy-demo).
 
 ---
 ### References
