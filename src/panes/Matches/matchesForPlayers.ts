@@ -1,4 +1,4 @@
-import { Player, Match } from "../../db"
+import { Player, Game } from "../../db"
 
 interface Score extends Player {
   points: number
@@ -6,9 +6,9 @@ interface Score extends Player {
 }
 
 
-const matchesForPlayers = (type: 'swiss' | 'elimination', stage:number, round:number, players:Player[], prevMatches:Match[]=[]) => {
-  players = (prevMatches.length) ? rankByScore(players, prevMatches) : shuffle(players)
-  const matches:Match[] = []
+const gamesForPlayers = (type: 'swiss' | 'elimination', stage:'seed'|'elim', round:number, players:Player[], games:Game[]=[]) => {
+  players = (games.length) ? rankByScore(players, games) : shuffle(players)
+  const nextGames:Game[] = []
 
   if (type == 'swiss') {
     if (players.length%2) {
@@ -16,16 +16,16 @@ const matchesForPlayers = (type: 'swiss' | 'elimination', stage:number, round:nu
     }
     // pair p1 vs p2, p3 vs p4, etc
     for (let i=0; i<players.length; i+=2) {
-      const m:Match = {stage, round, p1id: players[i].id as number, p2id: players[i+1].id as number}
-      matches.push(m)
+      const g:Game = {stage, round, n:0, p1id: players[i].id as number, p2id: players[i+1].id as number}
+      nextGames.push(g)
     }
     // ensure haven't played eachother before
-    if (prevMatches) {
-      for (let i=matches.length-1; i>0; i-=1) {
-        const m1 = matches[i]
-        if (prevMatches.find(m=>(m1.p1id == m.p1id && m1.p2id == m.p2id) || (m1.p1id == m.p2id && m1.p2id == m.p1id))) {
+    if (games) {
+      for (let i=nextGames.length-1; i>0; i-=1) {
+        const m1 = nextGames[i]
+        if (games.find(m=>(m1.p1id == m.p1id && m1.p2id == m.p2id) || (m1.p1id == m.p2id && m1.p2id == m.p1id))) {
           // swap players with another game
-          const m2 = matches[i-1]
+          const m2 = nextGames[i-1]
           ;[m2.p2id, m1.p1id]= [m1.p1id, m2.p2id]
         }
       }
@@ -41,11 +41,11 @@ const matchesForPlayers = (type: 'swiss' | 'elimination', stage:number, round:nu
   }
 }
 
-const rankByScore = (players:Player[], prevMatches:Match[]) => {
+const rankByScore = (players:Player[], games:Game[]) => {
   const sortByScore = (a:Score,b:Score) => {return (a.points > b.points ? -1 : a.points < b.points ? 1 : a.twenties > b.twenties ? -1 : a.twenties < b.twenties ? 1 : 0)}
 
   const scores = players.map(p=>{
-    const [points, twenties] = prevMatches.reduce(([points, twenties],m)=>{
+    const [points, twenties] = games.reduce(([points, twenties],m)=>{
       if (m.p1id == p.id) {
         points += m.p1points || 0
         twenties += m.p1twenties || 0
@@ -76,4 +76,4 @@ const shuffle = <T>(a:T[]) => {
 
 
 
-export default matchesForPlayers
+export default gamesForPlayers

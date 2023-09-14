@@ -12,7 +12,7 @@ import ElimStage from "./ElimStage"
 import rank from "../../utils/rank"
 
 const Matches = () => {
-  const players = useLiveQuery(async ()=> await db.players.filter(p=>p.present).toArray()) || []
+  const players = useLiveQuery(async ()=> await db.players.filter(p=>!!p.present).toArray()) || []
   const seedGames = useLiveQuery(async ()=> await db.games.where('stage').equals('seed').toArray()) || []
   const elimGames = useLiveQuery(async ()=> await db.games.where('stage').equals('elim').toArray()) || []
   const { seedrounds, log2elimplayers } = useContext(MatchesContext)
