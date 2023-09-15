@@ -2,7 +2,7 @@ import './App.css'
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css'
 
 import { Nav } from 'react-bootstrap'
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
+import { HashRouter, NavLink, Route, Routes } from 'react-router-dom'
 import Players from './panes/Players/Players'
 import Matches from './panes/Matches/Matches'
 import Rankings from './panes/Rankings/Rankings'
@@ -29,9 +29,10 @@ function AppTabs() {
 }
 
 function App() {
+  // Note: uses HashRouter to be hosted using GitHub Pages
   return (<>
     <MatchesContextProvider>
-    <BrowserRouter>
+    <HashRouter>
       <AppTabs/>
       <Routes>
         <Route path="/players" element={<Players/>}/>
@@ -39,7 +40,7 @@ function App() {
         <Route path="/rankings" element={<Rankings/>}/>
         <Route path="/settings" element={<Settings/>}/>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
     </MatchesContextProvider>
   </>)
 }
