@@ -42,8 +42,12 @@ const seedGames = async (round:number, options?:SeedGamesOptions) => {
   // add games to list
   games = scoredgames
   for (let i=0; i<players.length; i+=2) {
-    const p1id = players[i].id
-    const p2id = players[i+1].id
+    let p1id = players[i].id
+    let p2id = players[i+1].id
+    if (p1id == undefined) {
+      // ensure bye is on bottom
+      [p1id, p2id] = [p2id, p1id]
+    }
     const {p1points, p2points, p1twenties, p2twenties, gameRounds} = randomScore(p1id, p2id, randomScores)
 
     games.push({
@@ -55,9 +59,6 @@ const seedGames = async (round:number, options?:SeedGamesOptions) => {
       gameRounds
     })
   }
-  console.log('games', games)
-  const ngames = await db.games.bulkAdd(games)
-  console.log('ngames', ngames)
-  return ngames
+  return await db.games.bulkAdd(games)
 }
 export default seedGames 

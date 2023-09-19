@@ -2,6 +2,8 @@
 
 A web application to manage a crokinole tournament.
 
+Manage your own crokinole tournament [here](https://argylesock.github.io/crokinole-tourney/).
+
 It features a two-stage tournament that consists of an initial [swiss-system tournament][1]
 that gives everyone a chance to play at least N games, followed by a [single-elimination][2]
 stage amongst the top N ranked players.
@@ -10,7 +12,8 @@ stage amongst the top N ranked players.
 [2]: https://en.wikipedia.org/wiki/Single-elimination_tournament
 
 At the [Denver Cronkinole Club][3], we've found this approach works well for 20 players. The initial
-stage consists of 4 games that lasts about 2 1/2 hours followed by 3 games that lasts about 1 1/2 hours.
+stage consists of 4 competition rounds and lasts about 2 1/2 hours followed by
+a stage of 3 elimnation rounds, starting with 8 players, that lasts about 1 1/2 hours.
 
 [3]: https://www.denvercrokinoleclub.com/
 

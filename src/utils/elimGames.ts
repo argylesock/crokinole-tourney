@@ -33,14 +33,15 @@ const elimGames = async (round:number, nplayers:number, options?:ElimGamesOption
     players = players.slice(0, nplayers)
     for (let i=0; i< players.length/2; i++) {
       const p1id = players[i].id
-      const p2id = players[players.length-1-i].id
-      const {p1points, p2points, p1twenties, p2twenties} = randomScore(p1id, p2id, randomScores, true)
+      const p2id = players[nplayers-1-i].id
+      const {p1points, p2points, p1twenties, p2twenties, gameRounds} = randomScore(p1id, p2id, randomScores, true)
       games.push({
         stage: 'elim',
         round,
         n: i,
         p1id, p2id,
-        p1points, p2points, p1twenties, p2twenties
+        p1points, p2points, p1twenties, p2twenties,
+        gameRounds,
       })
     }
   } else {
@@ -55,16 +56,18 @@ const elimGames = async (round:number, nplayers:number, options?:ElimGamesOption
     for (let i=0; i< winners.length; i+=2) {
       const p1id = winners[i]
       const p2id = winners[i+1]
-      const {p1points, p2points, p1twenties, p2twenties} = randomScore(p1id, p2id, randomScores, true)
+      const {p1points, p2points, p1twenties, p2twenties, gameRounds} = randomScore(p1id, p2id, randomScores, true)
       games.push({
         stage: 'elim',
         round,
-        n: i,
+        n: i/2,
         p1id, p2id,
-        p1points, p2points, p1twenties, p2twenties
+        p1points, p2points, p1twenties, p2twenties,
+        gameRounds
       })
     }
   }
+  console.log('games', games)
   return db.games.bulkAdd(games)
 }
 

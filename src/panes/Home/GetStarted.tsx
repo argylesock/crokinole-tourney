@@ -8,7 +8,6 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core"
 import { faClipboardCheck, faClipboardList, faClipboardQuestion, faClipboardUser, faTrophy } from "@fortawesome/free-solid-svg-icons"
 import './GetStarted.css'
 import WorkingButton from "../../components/WorkingButton"
-import { sequence } from "../../utils"
 import addRandomPlayers from "../../utils/addRandomPlayers"
 import seedGames from "../../utils/seedGames"
 import elimGames from "../../utils/elimGames"
@@ -53,31 +52,39 @@ const GetStarted = () => {
   if (!data) return <Spinner/>
 
   const demoTournament = async () => {
+    const nseedrounds = 4
+    const nelimrounds = 3 // final of 8
     setWorking(true)
-    setTimeout(()=>setWorking(false),1000)
     // add 20 random players and
     // mark 5 as not present (there will be one bye)
-    addRandomPlayers(20, 5)
-    .then(()=>sequence(4).forEach(round=>{
+    await addRandomPlayers(20, 5)
+    for (let round=0; round<nseedrounds; round++) {
       // create and score 4 seed rounds
-      seedGames(round, {randomScores:true})
-    }))
-    .then(()=>sequence(3).forEach(round=>{
-      const nplayers = Math.pow(2,3-round) // 8,4,2
-      elimGames(round, nplayers, {randomScores:nplayers>2})
-    }))
+      await seedGames(round, {randomScores:true})
+    }
+    for (let round=0; round<nelimrounds; round++) {
+      const nplayers = Math.pow(2,nelimrounds-round) // 8,4,2
+      console.log('round', round, 'nplayers', nplayers)
+      await elimGames(round, nplayers, {randomScores:nplayers>2})
+    }
+    setWorking(false)
   }
 
   return (
   <div className='get-started'>
-    <h1 className='w-100 text-center mt-3 mb-3'>Welcome to <b>Crokinole Tourney</b></h1>
+    <h1 className='w-100 text-center mt-3 mb-3'>
+      Welcome to <b>Crokinole Tourney!</b>
+      <small>A super-simple crokinole tournament manager</small>
+    </h1>
     <div className='d-flex gap-3 flex-wrap justify-content-center'>
       <Card>
         <Card.Body>
             <div>
-              Just 6 easy steps!
+              <h2 className='text-center'>
+              6 easy steps!
+              </h2>
               <Step done={anyplayers} icon={faClipboardUser}>1. Add player names to the <Link to='/players'>Players</Link> tab.</Step>
-              <Step done={anypresent} icon={faClipboardUser}>2. Register players as present on the <Link to='/players'>Players</Link> tab.</Step>
+              <Step done={anypresent} icon={faClipboardUser}>2. Mark players present on the <Link to='/players'>Players</Link> tab.</Step>
               <Step done={seedzerodone} icon={faClipboardQuestion} doneIcon={faClipboardCheck}>3. Score seed stage games on the <Link to='/matches'>Matches</Link> tab.</Step>
               <Step icon={faClipboardList}>4. View rankings of seed stage on the <Link to='/rankings'>Rankings</Link> tab.</Step>
               <Step done={semifinaldone} icon={faClipboardQuestion} doneIcon={faClipboardCheck}>5. Score elimination stage games on the <Link to='/matches'>Matches</Link> tab.</Step>

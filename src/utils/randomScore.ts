@@ -10,7 +10,7 @@ const randomScore = (p1id:number|undefined, p2id:number|undefined, enabled=true,
   const gameRounds:GameRound[] = []
 
   if (enabled) {
-    const threshold = ((p1id as number) > (p2id as number)) ? 0.75 : (p1id == undefined) ? 0 : 1 // ensure bye always looses
+    const threshold = ((p1id as number) > (p2id as number)) ? 0.55 : (p1id == undefined) ? 0 : 1 // ensure bye always looses
     p1points = p2points = 0
     p1twenties = p2twenties = 0
     for (let i=0;i<ngamerounds;i++) {

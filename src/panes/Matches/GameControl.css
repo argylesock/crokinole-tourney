@@ -3,11 +3,14 @@
   flex-direction: row;
   align-items: center;
   justify-items: left;
+  color: var(--bs-gray-700);
 }
 
 .game-control .p1.p1-winner,
 .game-control .p2.p2-winner {
   padding-right: 1em;
+  color: var(--bs-black);
+  font-weight: 600;
 }
 .game-control .fa-award {
   position: absolute;
@@ -17,7 +20,7 @@
 
 .game-control .p1.bye,
 .game-control .p2.bye {
-  color: var(--bs-gray-500);
+  color: var(--bs-gray-400);
 }
 
 .game-control > div > :first-child {
@@ -31,7 +34,7 @@
 .game-control .p2 {
   position: relative;
   min-height: 2rem;
-  background-color: var(--bs-gray-200);
+  background-color: var(--bs-gray-100);
   border-radius: 3px;
   margin-right: 0.75em;
   padding: 0.25em 0.5em;

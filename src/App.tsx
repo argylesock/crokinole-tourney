@@ -25,7 +25,7 @@ function AppTabs() {
         <Nav.Link as={NavLink} to="/matches">Matches</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link as={NavLink} to="/rankings">Ranking</Nav.Link>
+        <Nav.Link as={NavLink} to="/rankings">Rankings</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link as={NavLink} to="/settings">Settings</Nav.Link>
