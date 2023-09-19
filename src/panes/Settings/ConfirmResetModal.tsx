@@ -24,7 +24,7 @@ const ConfirmResetModal = ({show,onHide,keepPlayers,setKeepPlayers,onConfirm}:Pr
       <Form.Check
         type='checkbox'
         checked={keepPlayers}
-        onClick={()=>setKeepPlayers(!keepPlayers)}
+        onChange={()=>setKeepPlayers(!keepPlayers)}
         label='Keep player names'
         id={'keep-players'}
       />

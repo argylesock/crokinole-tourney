@@ -19,6 +19,10 @@ export const PlayerSchema = {
   }
 }
 
+export interface GameRound {
+  p1points: number
+  p2points: number
+}
 export interface Game {
   // id not required to create
   id?: number
@@ -31,6 +35,7 @@ export interface Game {
   p2points?: number
   p1twenties?: number
   p2twenties?: number
+  gameRounds?: GameRound[]
 }
 
 export const GameSchema = {
@@ -54,6 +59,16 @@ export const GameSchema = {
     "p2points": { "type": "number" },
     "p1twenties": { "type": "number" },
     "p2twenties": { "type": "number" },
+    "gameRounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "p1points": { "type": "number" },
+          "p2points": { "type": "number" },
+        },
+      }
+    }
   }
 }
 
@@ -66,7 +81,7 @@ export class MyAppDatabase extends Dexie {
     
     this.version(1).stores({
       players: '++id, name',
-      games: '++id, stage, match, p1id, p2id',
+      games: '++id, stage, p1id, p2id',
     })
   }
 

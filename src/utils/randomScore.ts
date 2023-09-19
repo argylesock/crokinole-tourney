@@ -1,3 +1,5 @@
+import { GameRound } from "../db"
+
 const randomScore = (p1id:number|undefined, p2id:number|undefined, enabled=true, notie=false) => {
   const ngamerounds = 4
   let p1points:number|undefined = undefined
@@ -5,6 +7,7 @@ const randomScore = (p1id:number|undefined, p2id:number|undefined, enabled=true,
   let p1twenties:number|undefined = undefined
   let p2twenties:number|undefined = undefined
   const bye = p1id == undefined || p2id == undefined
+  const gameRounds:GameRound[] = []
 
   if (enabled) {
     const threshold = ((p1id as number) > (p2id as number)) ? 0.75 : (p1id == undefined) ? 0 : 1 // ensure bye always looses
@@ -14,11 +17,13 @@ const randomScore = (p1id:number|undefined, p2id:number|undefined, enabled=true,
       if (!bye && Math.random()<0.02) { // 1 in 50 is a tie
         p1points += 1
         p2points += 1
+        gameRounds.push({p1points:1, p2points:1})
         const n20s = Math.floor(Math.random()*5)
         p1twenties += n20s
         p2twenties += n20s
       } else if (Math.random()<threshold) { // player with higher id wins most often (for more consistent rankings in demo)
         p1points += 2
+        gameRounds.push({p1points:2, p2points:0})
         // bye round cannot score twenties
         if (!bye) {
           const n20s = Math.floor(Math.random()*5)
@@ -27,6 +32,7 @@ const randomScore = (p1id:number|undefined, p2id:number|undefined, enabled=true,
         }
       } else { // p2 wins
         p2points += 2
+        gameRounds.push({p1points:0, p2points:2})
         // bye round cannot score twenties
         if (!bye) {
           const n20s = Math.floor(Math.random()*5)
@@ -56,6 +62,7 @@ const randomScore = (p1id:number|undefined, p2id:number|undefined, enabled=true,
     p2points,
     p1twenties,
     p2twenties,
+    gameRounds,
   }
 }
 export default randomScore

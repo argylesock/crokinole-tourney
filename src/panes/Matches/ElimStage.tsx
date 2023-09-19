@@ -16,7 +16,7 @@ const ElimRound = ({round, players, games}:BracketRoundProps) => {
 
   return (<div className='elim-round'>
     {sequence(nmatches).map((n) => {
-      const g = thisRoundGames.find(g=>g.n == n)
+      const g = thisRoundGames.find(g=>g.n == n) || {stage:'elim', round, n, p1id: undefined, p2id: undefined}
       const p1 = g ? players.find(p=>p.id==g?.p1id) : undefined
       const p2 = g ? players.find(p=>p.id==g?.p2id) : undefined
       return (<GameControl key={n} g={g} p1={p1} p2={p2}/>)

@@ -6,13 +6,18 @@
 }
 
 .game-control .p1.p1-winner,
-.game-control .p1.p2-winner {
+.game-control .p2.p2-winner {
   padding-right: 1em;
 }
 .game-control .fa-award {
   position: absolute;
   top: 0.5em;
   right: 0.35em;
+}
+
+.game-control .p1.bye,
+.game-control .p2.bye {
+  color: var(--bs-gray-500);
 }
 
 .game-control > div > :first-child {
@@ -25,15 +30,16 @@
 .game-control .p1,
 .game-control .p2 {
   position: relative;
-  width: 11em;
   min-height: 2rem;
   background-color: var(--bs-gray-200);
   border-radius: 3px;
   margin-right: 0.75em;
   padding: 0.25em 0.5em;
+
+  width: 11em;
+  text-wrap: nowrap;
   text-overflow: ellipsis;
-  overflow:hidden;
-  white-space:nowrap;
+  overflow: hidden;
 }
 .game-control .p1 {
   border-bottom-left-radius: 0;
@@ -47,4 +53,55 @@
 .elim-32 .game-control .p1,
 .elim-32 .game-control .p2 {
   width: 8em;
+}
+
+.score-modal .p1-score,
+.score-modal .p2-score {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+.score-modal .p1-score .name,
+.score-modal .p2-score .name {
+  width: 11em;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.score-modal .p1-score .game > button ,
+.score-modal .p2-score .game > button {
+  width: 2.375em;
+}
+.score-modal .p1-score > div,
+.score-modal .p2-score > div {
+  display: inline-block;
+}
+.score-modal .points > div,
+.score-modal .twenties > div {
+  display: flex;
+  gap: 0.25em;
+  align-items: center;
+}
+.score-modal .points > div > label,
+.score-modal .twenties > div > label {
+  margin-bottom: 0;
+  font-size: 0.75em;
+  font-weight: 200;
+}
+.score-modal .points > div > .form-control,
+.score-modal .twenties > div > .form-control {
+  width: 3em;
+  text-align: right;
+}
+
+/* hide spin-buttons for number input ('cause field is too small) */
+/* Chrome, Safari, Edge, Opera */
+.score-modal input::-webkit-outer-spin-button,
+.score-modal input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.score-modal input[type=number] {
+  -moz-appearance: textfield;
 }

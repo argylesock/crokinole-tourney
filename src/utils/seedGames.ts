@@ -44,7 +44,7 @@ const seedGames = async (round:number, options?:SeedGamesOptions) => {
   for (let i=0; i<players.length; i+=2) {
     const p1id = players[i].id
     const p2id = players[i+1].id
-    const {p1points, p2points, p1twenties, p2twenties} = randomScore(p1id, p2id, randomScores)
+    const {p1points, p2points, p1twenties, p2twenties, gameRounds} = randomScore(p1id, p2id, randomScores)
 
     games.push({
       stage: 'seed',
@@ -52,8 +52,12 @@ const seedGames = async (round:number, options?:SeedGamesOptions) => {
       n: i/2,
       p1id, p2id,
       p1points, p2points, p1twenties, p2twenties,
+      gameRounds
     })
   }
-  return db.games.bulkAdd(games)
+  console.log('games', games)
+  const ngames = await db.games.bulkAdd(games)
+  console.log('ngames', ngames)
+  return ngames
 }
 export default seedGames 

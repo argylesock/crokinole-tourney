@@ -20,9 +20,10 @@
 }
 .rankings .rank-item-header .name,
 .rankings .rank-item .name {
-  width: 12rem;
+  width: 11rem;
   text-overflow: ellipsis;
   text-wrap: nowrap;
+  overflow: hidden;
 }
 .rankings .rank-item-header .record,
 .rankings .rank-item .record {
@@ -50,11 +51,14 @@
   border-radius: 0.3em;
 }
 .rankings .record > .win {
-  background-color: #26850e;
+  background-color: var(--bs-success);
 }
 .rankings .record > .loss {
-  background-color: #8d634b;
+  background-color: var(--bs-danger);
 }
 .rankings .record > .draw {
-  background-color: #69747d;
+  background-color: var(--bs-gray-500);
+}
+.rankings .record > .dnf {
+  background-color: var(--bs-gray-300);
 }

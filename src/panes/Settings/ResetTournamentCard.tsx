@@ -8,9 +8,8 @@ interface Props {
 }
 const ResetTournamentCard = ({anyData}:Props) => {
   const [showConfirmReset, _setModalShow] = useState(false);
-  const [keepPlayers, setKeepPlayers] = useState(true);
+  const [keepPlayers, setKeepPlayers] = useState(false);
   const setShowConfirmReset = (v:boolean) => {
-    if (v) setKeepPlayers(true)
     _setModalShow(v)
   }
 
