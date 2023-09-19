@@ -1,5 +1,4 @@
 import ResetTournamentCard from "./ResetTournamentCard"
-import AddPlayersCard from "./AddPlayersCard"
 import SaveAndReloadCard from "./SaveAndReloadCard"
 import { useLiveQuery } from "dexie-react-hooks"
 import db from "../../db"
@@ -12,7 +11,6 @@ const Settings = () => {
   return (
     <div className='d-flex mt-4 gap-4 flex-column'>
       <SaveAndReloadCard anyData={anyData}/>
-      <AddPlayersCard/>
       <ResetTournamentCard anyData={anyData}/>
     </div>
   )

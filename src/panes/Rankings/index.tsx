@@ -1,1 +1,2 @@
-export { default } from './Rankings'
+import Rankings from './Rankings'
+export default Rankings

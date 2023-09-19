@@ -3,15 +3,21 @@ import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css'
 
 import { Nav } from 'react-bootstrap'
 import { HashRouter, NavLink, Route, Routes } from 'react-router-dom'
-import Players from './panes/Players/Players'
-import Matches from './panes/Matches/Matches'
-import Rankings from './panes/Rankings/Rankings'
-import Settings from './panes/Settings/Settings'
+import Home from './panes/Home'
+import Players from './panes/Players'
+import Matches from './panes/Matches'
+import Rankings from './panes/Rankings'
+import Settings from './panes/Settings'
 import MatchesContextProvider from './contexts/MatchesContextProvider'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 
 function AppTabs() {
   return (
     <Nav variant="tabs">
+      <Nav.Item>
+        <Nav.Link as={NavLink} to="/"><FontAwesomeIcon icon={faHome}/></Nav.Link>
+      </Nav.Item>
       <Nav.Item>
         <Nav.Link as={NavLink} to="/players">Players</Nav.Link>
       </Nav.Item>
@@ -35,6 +41,7 @@ function App() {
     <HashRouter>
       <AppTabs/>
       <Routes>
+        <Route path="/" element={<Home/>}/>
         <Route path="/players" element={<Players/>}/>
         <Route path="/matches" element={<Matches/>}/>
         <Route path="/rankings" element={<Rankings/>}/>

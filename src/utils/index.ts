@@ -6,7 +6,6 @@ export const sequence = (n:number)=> n > 0 ? Array.from(Array(Math.floor(n)).key
 /** limit a number to a domain */
 export const limit = (x:number,min:number,max:number)=>{
   const l = Math.min(Math.max(min, x), max)
-  console.log('limit', x, min, '..', max, ':', l)
   return l
 }
 
@@ -24,5 +23,21 @@ export const shuffle = <T>(a:T[]) => {
     const r = Math.floor(Math.random() * c--)
     ;[a[c], a[r]] = [ a[r], a[c]]
   }
+  return a
+}
+
+
+/** remove items by value from an array */
+export function removeFromArray <T>(a:T[], ...values:T[]):T[]
+export function removeFromArray <T,V>(a:T[], comparator:(x:T,v:V)=>boolean, ...values:V[]):T[]
+export function removeFromArray <T,V>(a:T[], ...values:V[]) {
+  let comparator:(x:T,v:V)=>boolean
+  if (typeof values[0] == 'function') {
+    comparator = values.shift() as (x:T,v:V)=>boolean
+  }
+  values.forEach(v=>{
+    const i = comparator ? a.findIndex((x)=>comparator(x,v)) : a.indexOf(v as unknown as T)
+    if (i>=0) a = a.splice(i,1)
+  })
   return a
 }

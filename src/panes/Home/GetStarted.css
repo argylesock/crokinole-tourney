@@ -1,0 +1,11 @@
+.get-started {
+  font-size: 16pt;
+  font-weight: 200;
+}
+.get-started > h1 {
+  font-weight: 200;
+}
+
+.get-started .card {
+  width: 600px;
+}

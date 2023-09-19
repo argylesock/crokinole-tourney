@@ -1,1 +1,2 @@
-export { default } from './Players'
+import Players from './Players'
+export default Players

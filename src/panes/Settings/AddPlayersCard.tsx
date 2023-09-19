@@ -1,22 +1,14 @@
 import { Card } from "react-bootstrap"
-import names from './names.json'
-import db, { Player } from "../../db"
 import { useState } from "react"
 import WorkingButton from "../../components/WorkingButton"
-import { shuffle } from "../../utils"
-
+import addRandomPlayers from "../../utils/addRandomPlayers"
 
 const AddPlayersCard = () => {
   const [working, setWorking] = useState(false)
 
   const addPlayers = (n:number) => {
     setWorking(true)
-    setTimeout(()=>setWorking(false),1000)
-
-    const items = shuffle(names).slice(0, n).map(name=>{
-      return {name, present: true} as Player
-    })
-    db.players.bulkAdd(items)
+    addRandomPlayers(n).then(()=>setWorking(false))
   }
 
   return (

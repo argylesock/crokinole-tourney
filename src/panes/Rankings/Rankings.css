@@ -1,0 +1,60 @@
+.rankings {
+  --nrounds: 4;
+}
+.rankings .rank-item-header,
+.rankings .rank-item {
+  display: flex;
+  column-gap: 1rem;
+}
+.rankings .rank-item-header {
+  font-size: small;
+  text-transform: uppercase;
+}
+.rankings .rank-item-header .rank,
+.rankings .rank-item .rank {
+  text-align: right;
+  width: 2rem;
+}
+.rankings .rank-item .rank::after {
+  content: ". ";
+}
+.rankings .rank-item-header .name,
+.rankings .rank-item .name {
+  width: 12rem;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+.rankings .rank-item-header .record,
+.rankings .rank-item .record {
+  width: calc(var(--nrounds)*2.1rem);
+}
+.rankings .rank-item-header .points,
+.rankings .rank-item .points,
+.rankings .rank-item-header .twenties,
+.rankings .rank-item .twenties {
+  text-align: right;
+  width: 4rem;
+}
+.rankings .record {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+.rankings .record > span {
+  color: var(--bs-white);
+  padding: 0.2rem;
+  height: 1.9em;
+  width: 1.9em;
+  text-align: center;
+  font-size: 0.75em;
+  font-weight: bold;
+  border-radius: 0.3em;
+}
+.rankings .record > .win {
+  background-color: #26850e;
+}
+.rankings .record > .loss {
+  background-color: #8d634b;
+}
+.rankings .record > .draw {
+  background-color: #69747d;
+}
