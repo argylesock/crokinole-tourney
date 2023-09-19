@@ -44,7 +44,7 @@ const GameControl = ({g, p1, p2}:Props) => {
   const toggleGameRound = (p:'p1'|'p2', n:number) => {
     if (!g.gameRounds) g.gameRounds = Array(n)
     if (!g.gameRounds[n]) {
-      g.gameRounds[n] = { p1points: 1, p2points: 1 }
+      g.gameRounds[n] = { p1points: 0, p2points: 0 }
     }
     const states = [
       { p1points: 0, p2points: 0 },
@@ -149,7 +149,7 @@ const GameControl = ({g, p1, p2}:Props) => {
                 <div className='twenties'>
                   <FormGroup>
                     <FormLabel>20S</FormLabel>
-                    <FormControl value={g.p1twenties}
+                    <FormControl value={g.p1twenties || 0}
                        type='number' pattern="[0-9]*"
                        onChange={e=>setP1twenties(Number.parseInt(e.target.value))}/>
                   </FormGroup>
@@ -171,7 +171,7 @@ const GameControl = ({g, p1, p2}:Props) => {
                 <div className='twenties'>
                   <FormGroup>
                     <FormLabel>20S</FormLabel>
-                    <FormControl value={g.p2twenties}
+                    <FormControl value={g.p2twenties || 0}
                        type='number' pattern="[0-9]*"
                        onChange={e=>setP2twenties(Number.parseInt(e.target.value))}/>
                   </FormGroup>

@@ -97,8 +97,9 @@ const GetStarted = () => {
       <Card>
         <Card.Body>
           <div className='text-center'>
-            To see how it all works, use a <i>demo tournament</i> to
-            add random players and game scores, then score the final game!<br/>
+            To see how it all works, start with a <i>demo tournament</i> of 
+            15 random players, scores for 4 seed rounds, and 2 of the elimination rounds.
+            <p className='mt-2'>All that's left is to score the final game!</p>
           </div>
           <div className='mt-3 text-center'>
             <WorkingButton working={working} onClick={demoTournament}>Demo Tournament</WorkingButton>
