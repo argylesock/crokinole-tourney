@@ -26,7 +26,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
+    /* fix import names.json */
+    "esModuleInterop": true,
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+
+  /* fix avj import */
+  "allowSyntheticDefaultImports": true,
 }

@@ -42,12 +42,14 @@ describe('elimGames', ()=>{
     const nTopPlayers = 8
     const nRounds = Math.log2(nTopPlayers) // expect 3
 
-    const {gamesToAdd:round0Games} = elimGames(0, nRounds, players, allGames)
+    const randomScores = true
+    const nMatchGames = 4
+    const {gamesToAdd:round0Games} = elimGames(0, nRounds, players, allGames, nMatchGames, randomScores)
     round0Games.forEach(g=>allGames.push(g))
 
-    const {gamesToAdd} = elimGames(1, nRounds, players, allGames)
+    const {gamesToAdd} = elimGames(1, nRounds, players, allGames, nMatchGames, randomScores)
     expect(gamesToAdd.length).toBe(2)
-    const byeGames = gamesToAdd.filter(g=>g.p1id == undefined || g.p2id == undefined)
+    const byeGames = gamesToAdd.filter(g=>g.p1id === undefined || g.p2id === undefined)
     expect(byeGames.length).toBe(0)
   })
 })

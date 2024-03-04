@@ -23,13 +23,16 @@ describe('seedGames', ()=>{
   it('should fill bye with new player', ()=>{
     const players:Player[] = names.map((name,i)=>({id:i+1, name, present: true}))
     const {gamesToAdd:prevGames} = seedGames(0, players)
+    let byeGames = prevGames.filter(g=>!g.p1id || !g.p2id)
+    expect(byeGames.length).toBe(1)
 
     // new player
     players.push({id:8, name: newPlayerName, present:true})
 
+    prevGames.forEach((g,i)=>g.id = i) // so they can be deleted
     const {gamesToAdd, gamesToDelete} = seedGames(0, players, prevGames)
     expect(gamesToAdd.length).toBe(1)
-    const byeGames = gamesToAdd.filter(g=>!g.p1id || !g.p2id)
+    byeGames = gamesToAdd.filter(g=>!g.p1id || !g.p2id)
     expect(byeGames.length).toBe(0)
     expect(gamesToDelete.length).toBe(1)
   })
@@ -44,6 +47,7 @@ describe('seedGames', ()=>{
     expect(p).toBeDefined()
     if (p) p.present = false
 
+    prevGames.forEach((g,i)=>g.id = i) // so they can be deleted
     const {gamesToAdd, gamesToDelete} = seedGames(0, players, prevGames)
     expect(gamesToAdd.length).toBe(1)
     expect(gamesToAdd[0].p1id).toBeDefined()

@@ -32,18 +32,18 @@ const applyRollcall = (roundGames:Game[], presentPlayers:number[], absentPlayers
       if (g.p1id) matchedPlayers.push(g.p1id)
       if (g.p2id) matchedPlayers.push(g.p2id)
     } else if (bothAbsent) {
-      if (g.id) gamesToDelete.push(g.id)
+      if (g.id !== undefined) gamesToDelete.push(g.id)
     } else if (p1Absent) {
       // g.p2id is defined
       unmatchedPlayers.push(g.p2id as number)
-      if (g.id) {
+      if (g.id !== undefined) {
         gamesToDelete.push(g.id)
         byeGames.push(g.id)
       }
     } else if (p2Absent) {
       // g.p1id is defined
       unmatchedPlayers.push(g.p1id as number)
-      if (g.id) {
+      if (g.id !== undefined) {
         gamesToDelete.push(g.id)
         byeGames.push(g.id)
       }
@@ -52,7 +52,7 @@ const applyRollcall = (roundGames:Game[], presentPlayers:number[], absentPlayers
       if (removeUnscored) {
         unmatchedPlayers.push(g.p1id as number)
         unmatchedPlayers.push(g.p2id as number)
-        if (g.id) gamesToDelete.push(g.id)
+        if (g.id !== undefined) gamesToDelete.push(g.id)
       } else {
         matchedPlayers.push(g.p1id as number)
         matchedPlayers.push(g.p2id as number)

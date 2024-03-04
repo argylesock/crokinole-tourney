@@ -1,7 +1,17 @@
 import { Player } from '@/db'
-import names from './names.json'
 import rollcall from './rollcall'
 import { seedMatchups } from './seed-games'
+
+const names = [
+  'Jim Kirk',
+  'Spock',
+  'Montgomery Scott',
+  'Leonard McCoy',
+  'Nyota Uhura',
+  'Hikaru Sulu',
+  'Pavel Chekov',
+]
+const newPlayerName = 'Janice Rand'
 
 describe('rollcall', ()=>{
   it('should return 7 unmatchedPlayers when no prev round 0', ()=>{
@@ -15,8 +25,9 @@ describe('rollcall', ()=>{
     const prevGames = seedMatchups(0, players.map(p=>p.id))
 
     // new player
-    players.push({id:8, name: 'Janice Rand', present:true})
+    players.push({id:8, name: newPlayerName, present:true})
 
+    prevGames.forEach((g,i)=>g.id = i) // so they can be deleted
     const {unmatchedPlayers, gamesToDelete} = rollcall(players, prevGames)
     expect(gamesToDelete.length).toBe(1)
     expect(unmatchedPlayers.length).toBe(2)
@@ -32,6 +43,7 @@ describe('rollcall', ()=>{
     expect(p).toBeDefined()
     if (p) p.present = false
 
+    prevGames.forEach((g,i)=>g.id = i) // so they can be deleted
     const {unmatchedPlayers, gamesToDelete} = rollcall(players, prevGames)
     expect(unmatchedPlayers.length).toBe(2)
     expect(gamesToDelete.length).toBe(2)

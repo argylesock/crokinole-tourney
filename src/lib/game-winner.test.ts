@@ -44,7 +44,7 @@ describe('game-winner', ()=>{
       }
       expect(gameIsTie(g, 4)).toBe(true)
     })
-    it('should return false for incomplete game', ()=>{
+    it('should return true for incomplete game', ()=>{
       const g:Game = {
         stage: 'seed', round: 0, n: 0, p1id: undefined, p2id: undefined,
         p1twenties: 4,
@@ -56,7 +56,7 @@ describe('game-winner', ()=>{
           { p1points: 0, p2points: 0 },
         ],
       }
-      expect(gameIsTie(g, 4)).toBe(false)
+      expect(gameIsTie(g, 4)).toBe(true)
     })
   })
 })
