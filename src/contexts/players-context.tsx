@@ -1,5 +1,6 @@
 import { Player } from "@/db"
-import { ReactNode, createContext, useContext, useRef, useState } from "react"
+import Fuse from "fuse.js"
+import { ReactNode, createContext, useCallback, useContext, useMemo, useRef, useState } from "react"
 
 interface PlayersContextState {
   players: Player[]
@@ -9,6 +10,12 @@ interface PlayersContextState {
   hasPresentUndo: boolean
   storePresentUndo: (players: Player[]) => void
   retrievePresentUndo: () => Player[]
+  shownPlayerProfile: Player | undefined
+  showPlayerProfile: (id: number | undefined) => void
+  hidePlayerProfile: () => void
+  isDuplicateName: (s:string, self?:Player) => boolean|undefined
+  isDuplicateAlias: (s:string, self?:Player) => boolean|undefined
+  allTags: string[]
 }
 export const PlayersContext = createContext<PlayersContextState>({
   players: [],
@@ -18,6 +25,12 @@ export const PlayersContext = createContext<PlayersContextState>({
   hasPresentUndo: false,
   storePresentUndo: () => {},
   retrievePresentUndo: () => [],
+  shownPlayerProfile: undefined,
+  showPlayerProfile: () => {},
+  hidePlayerProfile: () => {},
+  isDuplicateName: () => false,
+  isDuplicateAlias: () => false,
+  allTags: []
 })
 
 interface Props {
@@ -30,6 +43,12 @@ export const PlayersProvider = ({players=[], children}:Props) => {
   const findPlayer = (id:number|undefined)=>id ? players?.find(p=>p.id == id) : undefined
   const resetAllPresentRef = useRef<Player[]>([])
   const [hasPresentUndo, setHasPresentUndo] = useState(false)
+  const [shownPlayerProfile, setShownPlayerProfile] = useState<Player>()
+  const showPlayerProfile = (id:number|undefined) => {
+    const p = id === undefined ? undefined : findPlayer(id)
+    setShownPlayerProfile(p)
+  }
+  const hidePlayerProfile = () => showPlayerProfile(undefined)
 
   const storePresentUndo = (players:Player[]) => {
     // deep copy
@@ -43,7 +62,47 @@ export const PlayersProvider = ({players=[], children}:Props) => {
     return players
   }
 
-  const value = {players, nPlayers, nPresent, findPlayer, hasPresentUndo, storePresentUndo, retrievePresentUndo}
+  const isDuplicate = useCallback((s:string, key:('name'|'alias'), self?:Player)=>{
+    const results = (new Fuse(players||[], {keys:[key], includeScore:true}).search(s) || []).filter(x=>x.item.id != self?.id)
+    const topMatch = results.slice(0,1)[0]
+    const score = topMatch?.score || Number.MAX_SAFE_INTEGER
+    const exact = 1e-10
+    const almost = 0.3
+    const almostAndOne = 0.35
+    const foundOne = results.length == 1
+    if (score < exact) return true
+    if (s.trim().length < 3) return false
+    if (score < almost) return undefined
+    if (score < almostAndOne && foundOne ) return undefined
+    return false
+  }, [players])
+  const isDuplicateName = (s:string, self?:Player) => isDuplicate(s, 'name', self)
+  const isDuplicateAlias = (s:string, self?:Player) => isDuplicate(s, 'alias', self)
+
+  const allTags = useMemo(()=>{
+    const tagSuggestions = ['Adult', 'Competitve', 'Junior', 'Rec']
+    const allTags = new Set<string>(tagSuggestions)
+    if (players) players.forEach(p=>{
+      if (p.tags) p.tags.forEach(t=>allTags.add(t))
+    })
+    return [...allTags].sort()
+  }, [players])
+
+  const value = {
+    players,
+    nPlayers,
+    nPresent,
+    findPlayer,
+    hasPresentUndo,
+    storePresentUndo,
+    retrievePresentUndo,
+    shownPlayerProfile,
+    showPlayerProfile,
+    hidePlayerProfile,
+    isDuplicateName,
+    isDuplicateAlias,
+    allTags,
+  }
 
   return (
     <PlayersContext.Provider value={value}>{children}</PlayersContext.Provider>

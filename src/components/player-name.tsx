@@ -36,7 +36,7 @@ export default function PlayerName ({player, className, empty='bye', noshape=tru
   return (
     <div className={cn(className, 'flex text-left gap-1 items-center', !noshape && 'w-48', winner && '')}>
       <span className={cn("h-2 w-2 shrink-0 rounded-full", (!player || absent) ? "border border-slate-400" : "bg-sky-400")}/>
-      <span className={cn('truncate', noshape ? 'w-40 sm:w-48' : 'w-36 sm:w-44', !(player?.name || absent || winner === false) && 'text-muted-foreground')}>{player?.name || empty}</span>
+      <span className={cn('truncate', noshape ? 'w-40 sm:w-48' : 'w-36 sm:w-44', !(player?.alias || player?.name || absent || winner === false) && 'text-muted-foreground')}>{player?.alias || player?.name || empty}</span>
       {noshape ? undefined : <span className={cn('w-4 shrink-0', shapeColor,!player && 'invisible')}><Shape i={pid}/></span>}
     </div>
   )
