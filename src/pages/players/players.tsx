@@ -17,7 +17,6 @@ import  Fuse from 'fuse.js'
 import SearchInput from '@/components/search-input'
 import { usePlayers } from '@/contexts/players-context'
 import PageContent from '@/components/page-content'
-import { PlayerProfileSheet } from './player-profile-sheet'
 
 export default function PlayersPage () {
   const [sort, setSort] = useState(0)
@@ -105,6 +104,5 @@ export default function PlayersPage () {
       {players.map(p=><PlayerInput key={p.id} player={p} isDuplicate={isDuplicate}/>)}
       <AddPlayerInput isDuplicate={isDuplicate}/>
     </PageContent>
-    <PlayerProfileSheet/>
   </PageContainer>)
 }

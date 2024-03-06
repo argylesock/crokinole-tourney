@@ -137,7 +137,7 @@ export default function GamePopover({trigger, game:g, readonly,  numRounds=4}:Pr
           return (
             <div key={pn} className='p-2 sm:px-3 sm:py-1'>
               <div key={i} className='flex flex-wrap gap-2 items-center'>
-                <div className={cn('w-56 sm:w-40 font-bold truncate', isBye && 'text-muted-foreground')}>{player?.alias || player?.name || 'bye'}</div>
+                <div className={cn('w-56 sm:w-40 font-bold truncate', isBye && 'text-muted-foreground')}>{player?.name || 'bye'}</div>
                 <div className={cn('flex gap-1 items-center', isBye && 'invisible')}>
                   {sequence(numRounds).map(rn=>(
                     <div key={rn} className='game'><WinLossToggle small={readonly} disabled={disabled} game={g} rn={rn} pn={pn} onClick={()=>toggleGameRound(pn, rn, numRounds)}/></div>
