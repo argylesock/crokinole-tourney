@@ -2,6 +2,8 @@ export interface Player {
   id?: number
   name: string
   present?: boolean
+  alias?: string
+  tags?: string[]
 }
 
 export const PlayerSchema = {

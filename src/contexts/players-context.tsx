@@ -9,6 +9,9 @@ interface PlayersContextState {
   hasPresentUndo: boolean
   storePresentUndo: (players: Player[]) => void
   retrievePresentUndo: () => Player[]
+  shownPlayerProfile: Player | undefined
+  showPlayerProfile: (id: number | undefined) => void
+  hidePlayerProfile: () => void
 }
 export const PlayersContext = createContext<PlayersContextState>({
   players: [],
@@ -18,6 +21,9 @@ export const PlayersContext = createContext<PlayersContextState>({
   hasPresentUndo: false,
   storePresentUndo: () => {},
   retrievePresentUndo: () => [],
+  shownPlayerProfile: undefined,
+  showPlayerProfile: () => {},
+  hidePlayerProfile: () => {},
 })
 
 interface Props {
@@ -30,6 +36,12 @@ export const PlayersProvider = ({players=[], children}:Props) => {
   const findPlayer = (id:number|undefined)=>id ? players?.find(p=>p.id == id) : undefined
   const resetAllPresentRef = useRef<Player[]>([])
   const [hasPresentUndo, setHasPresentUndo] = useState(false)
+  const [shownPlayerProfile, setShownPlayerProfile] = useState<Player>()
+  const showPlayerProfile = (id:number|undefined) => {
+    const p = id === undefined ? undefined : findPlayer(id)
+    setShownPlayerProfile(p)
+  }
+  const hidePlayerProfile = () => showPlayerProfile(undefined)
 
   const storePresentUndo = (players:Player[]) => {
     // deep copy
@@ -43,7 +55,18 @@ export const PlayersProvider = ({players=[], children}:Props) => {
     return players
   }
 
-  const value = {players, nPlayers, nPresent, findPlayer, hasPresentUndo, storePresentUndo, retrievePresentUndo}
+  const value = {
+    players,
+    nPlayers,
+    nPresent,
+    findPlayer,
+    hasPresentUndo,
+    storePresentUndo,
+    retrievePresentUndo,
+    shownPlayerProfile,
+    showPlayerProfile,
+    hidePlayerProfile,
+  }
 
   return (
     <PlayersContext.Provider value={value}>{children}</PlayersContext.Provider>
