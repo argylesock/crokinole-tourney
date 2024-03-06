@@ -19,8 +19,6 @@ export default async function demoTournament () {
   const players = await db.players.toArray()
   const nPresent = players.filter(p=>p.present).length
   const playersToAdd = demoPlayers(20, 15, players.length, nPresent)
-  console.log('playersToAdd', playersToAdd)
-  console.log('db', db)
   await db.players.bulkAdd(playersToAdd)
   const allPlayers = await db.players.toArray()
 

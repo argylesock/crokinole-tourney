@@ -52,8 +52,6 @@ export default function MatchesPage () {
     const isLastSeedUnscored = !!games.find(g=>g.stage == 'seed' && g.round == (nSeedRounds - 1) && gameIsUnscored(g))
     const isLastElimUnscored = !!games.find(g=>g.stage == 'elim' && g.round == (nElimRounds - 1) && gameIsUnscored(g))
     const atEnd = games.filter(g=>g.stage == 'elim' && g.round == (nElimRounds - 1)).length == 1
-    console.log('isLastSeedUnscored', isLastSeedUnscored, games, 'nSeedRounds', nSeedRounds)
-    console.log('isLastElimUnscored', isLastElimUnscored)
     return {nSeedRounds, nElimRounds, isLastSeedUnscored, isLastElimUnscored, atEnd}
   }, [games])
 

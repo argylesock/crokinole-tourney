@@ -33,7 +33,6 @@ export default function StageRound ({stage, round, nRounds}:Props) {
 
   const {canResetMatches, canAddMatches, canDeleteMatches} = useMemo(()=>{
     const gameWithScore = thisRound.find(g=>gameIsBye(g) ? false : gameHasAnyScore(g))
-    console.log('gameWithScore', gameWithScore)
     const canResetMatches = !hasNextRound && !gameWithScore
     const {unmatchedPlayers, gamesToDelete, byeGames} = rollcall(players, thisRound)
     const canAddMatches = stage == 'seed' && !hasNextRound && unmatchedPlayers.length > 1
