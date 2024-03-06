@@ -17,7 +17,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: string) {
-          if (id.includes('@radix-ui')) { return '@radix-ui' }
+          if (id.includes("node_modules")) {
+            id = id.split('node_modules')[1]
+            if (id.startsWith('/@radix-ui/')) { return 'radix-ui' }
+            if (id.startsWith('/react-dom/')) { return 'react-dom' }
+            if (id.startsWith('/react/')) { return 'react' }
+          }
         },
       },
     },
