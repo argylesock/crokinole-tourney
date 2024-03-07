@@ -13,6 +13,7 @@ const AddPlayerInput = () => {
   const {isDuplicateName, isDuplicateAlias} = usePlayers()
   const [name, _setName] = useState('')
   const [alias, _setAlias] = useState<string|undefined>(undefined)
+  const [adding, setAdding] = useState(false)
   const [debounced, setDebounced] = useDebounceValue('', 250)
 
   const setValue = (s:string) => {
@@ -31,8 +32,11 @@ const AddPlayerInput = () => {
   const addPlayer = (event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!name.trim()) return
-    db.players.add({name:name.trim(), present})
+    setAdding(true)
+    db.players.add({name:name.trim(), alias, present})
     .then(()=>setValue(''))
+    // wait 250ms to remove red flashing of the border
+    .finally(()=>setTimeout(()=>setAdding(false),250))
   }
 
   const {duplicateName, duplicateAlias} = useMemo(()=>{
@@ -43,9 +47,10 @@ const AddPlayerInput = () => {
   }, [isDuplicateName, isDuplicateAlias, debounced])
   const isInvalid = duplicateName === true || duplicateAlias === true
 
-  const danger = duplicateName || duplicateAlias
-  const warning = duplicateName === undefined || duplicateAlias === undefined
-  const inputMsg = (duplicateName) ? duplicateNameError
+  const danger = !adding && (duplicateName || duplicateAlias)
+  const warning = !adding && (duplicateName === undefined || duplicateAlias === undefined)
+  const inputMsg = adding ? ''
+  : (duplicateName) ? duplicateNameError
   : (duplicateAlias) ? duplicateAliasError
   : (duplicateName === undefined) ? closeMatchNameWarning
   : (duplicateAlias === undefined) ? closeMatchAliasWarning
