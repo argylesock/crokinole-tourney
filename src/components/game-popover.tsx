@@ -11,18 +11,19 @@ import { gameHasTieBreaker } from '@/lib/game-winner'
 import { cn, sequence } from '@/lib/utils'
 import GameButton from './game-button'
 import { Input } from './ui/input'
+import { NumberInput } from './number-input'
  
 interface Props {
   trigger?: ReactNode
   game: Game
-  readonly?: boolean
+  readOnly?: boolean
   numRounds?: number
 }
-export default function GamePopover({trigger, game:g, readonly,  numRounds=4}:Props) {
+export default function GamePopover({trigger, game:g, readOnly,  numRounds=4}:Props) {
   const { findPlayer } = useContext(PlayersContext)
   const p1 = findPlayer(g.p1id)
   const p2 = findPlayer(g.p2id)
-  const disabled = readonly || !p1 || !p2
+  const disabled = readOnly || !p1 || !p2
 
   const [p1points, setP1points] = useState(g.p1points)
   const [p2points, setP2points] = useState(g.p2points)
@@ -36,7 +37,7 @@ export default function GamePopover({trigger, game:g, readonly,  numRounds=4}:Pr
   }, [g])
 
   useEffect(()=>{
-    if (readonly) return
+    if (readOnly) return
     if (!p1 || !p2) {
       g.gameRounds = new Array(numRounds).fill({
         p1points: 1, p2points: 1
@@ -44,7 +45,7 @@ export default function GamePopover({trigger, game:g, readonly,  numRounds=4}:Pr
       saveGame(g)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [p1, p2, readonly])
+  }, [p1, p2, readOnly])
 
   const totalPoints = () => {
     const gameRounds = g.gameRounds || []
@@ -140,15 +141,19 @@ export default function GamePopover({trigger, game:g, readonly,  numRounds=4}:Pr
                 <div className={cn('w-56 sm:w-40 font-bold truncate', isBye && 'text-muted-foreground')}>{player?.alias || player?.name || 'bye'}</div>
                 <div className={cn('flex gap-1 items-center', isBye && 'invisible')}>
                   {sequence(numRounds).map(rn=>(
-                    <div key={rn} className='game'><WinLossToggle small={readonly} disabled={disabled} game={g} rn={rn} pn={pn} onClick={()=>toggleGameRound(pn, rn, numRounds)}/></div>
+                    <div key={rn} className='game'><WinLossToggle small={readOnly} disabled={disabled} game={g} rn={rn} pn={pn} onClick={()=>toggleGameRound(pn, rn, numRounds)}/></div>
                   ))}
                   {g.stage == 'elim' ? (
-                    <div  className={cn('game', (!showTieBreaker) && 'invisible')}><WinLossToggle small={readonly} disabled={disabled} game={g} rn={numRounds} pn={pn} onClick={()=>toggleGameRound(pn, numRounds, numRounds + 1)}/></div>
+                    <div  className={cn('game', (!showTieBreaker) && 'invisible')}><WinLossToggle small={readOnly} disabled={disabled} game={g} rn={numRounds} pn={pn} onClick={()=>toggleGameRound(pn, numRounds, numRounds + 1)}/></div>
                   ): undefined}
                 </div>
                 <div className={cn('flex gap-1 items-center', isBye && 'invisible')}>
                   <Input readOnly disabled={disabled} id='points' className='w-10 pl-1 text-right' onChange={e=>setPoints(pn, parseInt(e.target.value))} value={isNaN(points || NaN) ? '' : points} /> <span className='text-muted-foreground'>pts</span>
-                  <Input disabled={disabled} id='twenties' className='w-10 pl-1 text-right' onChange={e=>setTwenties(pn, parseInt(e.target.value))} value={isNaN(twenties || NaN) ? '' : twenties} /> <span className='text-muted-foreground'>20s</span>
+                  <NumberInput min={0} max={99} readOnly={readOnly}
+                    disabled={disabled} id='twenties' className='pl-1'
+                    value={isNaN(twenties || NaN) ? 0 : twenties}
+                    setValue={x=>setTwenties(pn, x)}
+                  /> <span className='text-muted-foreground'>20s</span>
                 </div>
               </div>
             </div>

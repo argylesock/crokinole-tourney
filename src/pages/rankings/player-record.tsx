@@ -18,7 +18,7 @@ export default function PlayerRecord ({wld}:Props) {
   return (
     <div className='flex flex-wrap gap-1 -ml-1 sm:w-60'>
       {wld.map((x,i)=>(
-        <GamePopover key={i} readonly game={x.game} trigger={
+        <GamePopover key={i} readOnly game={x.game} trigger={
           <Button key={i} className={cn(baseClassNames, wldClassNames[x.wld])}>{x.wld.substring(0,1)}</Button>
         }/>
       ))}
