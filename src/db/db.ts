@@ -39,6 +39,7 @@ export class MyAppDatabase extends Dexie {
 
   async replace(payload:{players:Player[], games?:Game[]}) {
     const {players, games=[]} = payload
+    await db.players.clear()
     await db.games.clear()
     await db.players.bulkPut(players)
     await db.games.bulkPut(games)
