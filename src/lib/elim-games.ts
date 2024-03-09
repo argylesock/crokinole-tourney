@@ -44,7 +44,8 @@ export const elimMatchups = (round:number, nStageRounds:number, unmatchedPlayers
       // ensure bye is on bottom
       [p1id, p2id] = [p2id, p1id]
     }
-    const {p1points, p2points, p1twenties, p2twenties, gameRounds} = randomScore(p1id, p2id, nGameRounds, randomScores)
+    const notie = true
+    const {p1points, p2points, p1twenties, p2twenties, gameRounds} = randomScore(p1id, p2id, nGameRounds, randomScores, notie)
 
     gamesToAdd.push({
       stage: 'elim',
