@@ -91,7 +91,7 @@ export default function PlayerInput ({player}:Props) {
         <Switch checked={present} onCheckedChange={togglePresent}/>
         <div className='w-full max-w-sm relative'>
           <Input danger={danger} warning={warning} className='pr-9' type='text' placeholder='Player name' value={value} onChange={e=>setValue(e.target.value)}/>
-          <Button variant='ghost' size='icon' className='w-8 h-8 rounded-full absolute right-0.5 z-50 inset-y-0.5 text-slate-500 shrink-0 p-2' onClick={()=>showPlayerProfile(player.id)}>
+          <Button variant='ghost' size='icon' className='w-8 h-8 rounded-full absolute right-0.5 inset-y-0.5 text-slate-500 shrink-0 p-2' onClick={()=>showPlayerProfile(player.id)}>
             <UserCircleIcon strokeWidth={1}/>
           </Button>
         </div>
