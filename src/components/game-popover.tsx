@@ -152,7 +152,7 @@ export default function GamePopover({trigger, game:g, readOnly,  numRounds=4}:Pr
                   <NumberInput min={0} max={99} readOnly={readOnly}
                     disabled={disabled} id='twenties' className='pl-1'
                     value={isNaN(twenties || NaN) ? 0 : twenties}
-                    setValue={x=>setTwenties(pn, x)}
+                    onValueChange={x=>setTwenties(pn, x)}
                   /> <span className='text-muted-foreground'>20s</span>
                 </div>
               </div>
