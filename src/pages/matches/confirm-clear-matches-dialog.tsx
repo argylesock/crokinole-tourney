@@ -12,7 +12,7 @@ export default function ConfirmClearMatchesDialog ({show, onHide, onConfirm}:Pro
       <AlertDialogContent>
         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
         <AlertDialogDescription>
-          If you clear matches in this round, all scores and matches will be lost.
+          If you clear matches you will loose any scores entered this round.
         </AlertDialogDescription>
         <AlertDialogFooter className='gap-1 sm:gap-0'>
           <AlertDialogAction className={destructive} onClick={onConfirm}>Yes, Clear Matches</AlertDialogAction>
