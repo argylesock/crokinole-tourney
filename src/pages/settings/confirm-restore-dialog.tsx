@@ -5,7 +5,7 @@ interface Props {
   onHide: ()=>void
   onConfirm: ()=>void
 }
-export default function ConfirmRestoreModal ({show, onHide, onConfirm}:Props) {
+export default function ConfirmRestoreDialog ({show, onHide, onConfirm}:Props) {
   const destructive = "transition-colors bg-destructive text-destructive-foreground hover:bg-destructive/90"
   return (
     <AlertDialog open={show} onOpenChange={onHide}>

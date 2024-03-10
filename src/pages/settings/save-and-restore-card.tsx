@@ -1,6 +1,6 @@
 import db from '@/db'
 import { FormEvent, useContext, useState } from 'react'
-import ConfirmRestoreModal from './confirm-restore-dialog'
+import ConfirmRestoreDialog from './confirm-restore-dialog'
 import ValidationErrorModal from './validation-error-dialog'
 import validateRestore from '@/lib/validate-restore'
 import WorkingButton from '@/components/working-button'
@@ -105,7 +105,7 @@ const SaveAndRestoreCard = ({anyData}:Props) => {
         </CardContent>
       </form>
 
-      <ConfirmRestoreModal
+      <ConfirmRestoreDialog
         show={showConfirmRestore}
         onHide={()=>setShowConfirmRestore(false)}
         onConfirm={restore}
