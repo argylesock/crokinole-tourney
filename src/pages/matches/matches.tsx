@@ -102,7 +102,7 @@ export default function MatchesPage () {
           <CarouselContent>
             {sequence(nRounds).map(round=>(
               <CarouselItem key={round} className='min-h-80'>
-                <StageRound {...{stage, round, nRounds}}/>
+                <StageRound {...{stage, round, nRounds}} active={current==round}/>
               </CarouselItem>
             ))}
             {showStartRound ? (
