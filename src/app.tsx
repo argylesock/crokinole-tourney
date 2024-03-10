@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { HashRouter, Route, Routes } from "react-router-dom"
 import AppMenu from "./components/app-menu"
 import HomePage from "./pages/home"
 import PlayersPage from "./pages/players"
@@ -17,17 +17,20 @@ export default function App() {
     {label: 'Rankings', path: 'rankings', element: <RankingsPage/>, icon: <ListOrderedIcon strokeWidth={1}/>},
     {label: 'Settings', path: 'settings', element: <SettingsPage/>, icon: <SettingsIcon strokeWidth={1}/>},
   ]
+
+  // Note: need to use a hash-router since github pages doesn't reload deeper pages
+
   return (
     <ThemeProvider defaultTheme='light'>
     <TournamentProvider>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <HashRouter>
         <ScrollToTop/>
         <AppMenu pages={pages}/>
         <Routes>
           {pages.map(page=><Route key={page.label} path={page.path} element={page.element}/>)}
           <Route path='/' element={<HomePage/>}/>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </TournamentProvider>
     </ThemeProvider>
   )
