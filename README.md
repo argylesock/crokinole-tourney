@@ -29,30 +29,9 @@ During the elimination stage:
 
 
 ---
-### Panels in UI:
+## TODO
 
-#### Players:
-- Singles or Doubles (two names in the roster)
-  - option to randomly assigned partners?
-
-#### Matches:
-- Pairings for matches
-
-#### Scoring:
-- Scoring for matches
-
-#### Rankings:
-- Players ranked by Wins, Draws, 20s
-- Elimination bracket view?
-
-#### Settings:
-- Number of games in initial stage (recommended = 20% of n-players)
-- Number of players in elimination round (recommended = 40% of n-players)
-- Random knockout option for elimination stage
-- Option to remove/clear results of each stage
-- Option to remove/clear typeahead values for the roster
-
-
+1. Add ability to pair players into teams for a double's tournament
 
 ---
 In order to reduce costs of hosting this web application to ***zero***,
@@ -71,4 +50,3 @@ to consider for expanding the application to allow 'client' access in the future
 
 The intention is that this will be hosted using Github Pages, a free option for
 open-source projects.
->>>>>>> 2b3bee8 (initial commit)
